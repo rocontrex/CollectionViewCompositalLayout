@@ -12,7 +12,7 @@ class ViewController: UIViewController {
  
     private let collectionView = UICollectionView(
         frame: .zero,
-        collectionViewLayout: UICollectionViewFlowLayout()
+        collectionViewLayout: ViewController.createLayout()
     )
     
     override func viewDidLoad() {
@@ -25,6 +25,28 @@ class ViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         
+    }
+    
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        //Item
+        let item = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(1)
+            )
+        )
+        //Group
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalHeight(2/5)
+            ),
+            subitem: item,
+            count: 2)
+        //Sections
+        let section = NSCollectionLayoutSection(group: group)
+        //Return
+        return UICollectionViewCompositionalLayout(section: section)
     }
 }
 
