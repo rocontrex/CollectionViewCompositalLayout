@@ -31,18 +31,46 @@ class ViewController: UIViewController {
         //Item
         let item = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
+                widthDimension: .fractionalWidth(2/3),
                 heightDimension: .fractionalHeight(1)
             )
         )
-        //Group
-        let group = NSCollectionLayoutGroup.horizontal(
+        
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: 2, leading: 2, bottom: 2, trailing: 2
+        )
+        
+        let verticalStackItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .fractionalHeight(2/5)
+                heightDimension: .fractionalHeight(0.5)
+            )
+        )
+        
+        verticalStackItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 2, leading: 2, bottom: 2, trailing: 2
+        )
+        
+        //Group
+        let verticalStackGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1/3),
+                heightDimension: .fractionalHeight(1)
             ),
-            subitem: item,
+            subitem: verticalStackItem,
             count: 2)
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(3/5)
+            ),
+            subitems: [
+                item,
+                verticalStackGroup
+            ]
+        )
+        
         //Sections
         let section = NSCollectionLayoutSection(group: group)
         //Return
