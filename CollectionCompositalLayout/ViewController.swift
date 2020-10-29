@@ -51,7 +51,6 @@ class ViewController: UIViewController {
             top: 2, leading: 2, bottom: 2, trailing: 2
         )
         
-        //Group
         let verticalStackGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1/3),
@@ -60,10 +59,31 @@ class ViewController: UIViewController {
             subitem: verticalStackItem,
             count: 2)
         
-        let group = NSCollectionLayoutGroup.horizontal(
+        let tripledItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1),
+                heightDimension: .fractionalWidth(1)
+            )
+        )
+        
+        tripledItem.contentInsets = NSDirectionalEdgeInsets(
+            top: 2, leading: 2, bottom: 2, trailing: 2
+        )
+        
+        let tripletHorizontalGroup =  NSCollectionLayoutGroup.horizontal(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalWidth(3/5)
+                heightDimension: .fractionalWidth(0.3)
+            ),
+            subitem: tripledItem,
+            count: 3
+        )
+        
+        //Group
+        let horizontalGroup = NSCollectionLayoutGroup.horizontal(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(0.7)
             ),
             subitems: [
                 item,
@@ -71,8 +91,19 @@ class ViewController: UIViewController {
             ]
         )
         
+        let verticalGroup = NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            ),
+            subitems: [
+                horizontalGroup,
+                tripletHorizontalGroup
+            ]
+        )
+        
         //Sections
-        let section = NSCollectionLayoutSection(group: group)
+        let section = NSCollectionLayoutSection(group: verticalGroup)
         //Return
         return UICollectionViewCompositionalLayout(section: section)
     }
